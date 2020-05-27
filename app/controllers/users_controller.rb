@@ -1,36 +1,18 @@
 class UsersController < ApplicationController
 
-  get '/users' do
-    if signed_in?
-      @user = User.find(session[:user_id])
-      erb :"users/show.html"
-    else
-      redirect "/signin"
-    end
+  get "/login" do
+    erb :"/users/login.html"
   end
 
-  get '/users/:id' do
-    if signed_in?
-      @user = User.find(params[:id])
-      erb :'/users/show.html'
-    else
-      redirect '/signin'
-    end
-  end
- 
-  get "/signin" do
-    erb :"/users/signin.html"
-  end
-
-  post "/signin" do
+  post '/login' do
     @user = User.find_by(:name => params[:name])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect '/recipes'
-    else
-      redirect "/signup"
+      redirect '/homepage'
     end
   end
+  #   redirect '/users/login'
+  # end
   
   get "/signup" do
     erb :'/users/new.html'
@@ -41,46 +23,16 @@ class UsersController < ApplicationController
     @user = User.new(name: params["name"], email: params["email"], password: params["password"])
     @user.save
     session[:user_id] = @user.id
-    redirect "/recipes"
+    redirect "/homepage"
   end
 
-  get "/signout" do
-    if signed_in?
-      session.destroy
-      redirect "/signin"
-    else
-      redirect "/index"
-    end
+  get '/signout' do
+    session.clear
+    redirect '/'
   end
 
-  get "/users/:id/edit" do
-    @user = User.find_by(id: session[:user_id])
-    if @user
-    erb :"/users/edit.html"
-    else
-      redirect "/signin"
-    end
+  get '/homepage' do
+    @user = User.find(session[:user_id])
+    erb :'/recipe/index.html'
   end
-
-  patch '/users/:id' do
-    if signed_in?
-      if params[:name].empty?
-        redirect "/users/#{params[:id]}/edit"
-      else
-        @user = User.find_by_id(params[:id])
-        if @user == current_user
-          if @user.update(:name => params[:name], :email => params[:email])
-            redirect to "/users/#{@user.id}"
-          else
-          redirect to "/users/#{@user.id}/edit"
-          end
-        else
-          redirect to '/users'
-        end
-      end
-    else
-      redirect '/signin'
-    end
-  end
- 
 end
