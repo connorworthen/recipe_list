@@ -1,7 +1,8 @@
 class RecipesController < ApplicationController
 
   get "/recipes" do
-    @user = User.find(session[:user_id])
+    @user = User.find_by(id: session[:user_id])
+    @recipes = Recipe.all
     erb :'/recipe/show.html'
   end
 

@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   get '/homepage' do
     @user = User.find(session[:user_id])
-    erb :'/recipe/index.html'
+    erb :'/users/show.html'
   end
 
   get '/users' do
@@ -39,22 +39,20 @@ class UsersController < ApplicationController
     erb :'users/show.html'
   end
 
-  get '/users/:id' do
+get '/users/:id' do
     @user = User.find(params[:id])
     erb :'users/show.html'
   end
-
-  get "/users/:id/edit" do
+get "/users/:id/edit" do
     @user = User.find_by(id: session[:user_id])
     @user
     erb :"/users/edit.html"
   end
 
   patch '/users/:id' do
-    u = current_user
     @user = User.find_by(id: params[:id])
     @user.update(name: params[:name], email: params[:email])
-    redirect "/users/#{@u.id}"
+    @user.save
+    redirect "/users/#{@user.id}"
   end
 end
-
