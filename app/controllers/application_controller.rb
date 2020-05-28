@@ -10,6 +10,9 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
+    # @user = User.find_by(id: session[:user_id])
+    # all_recipes = Recipe.association_join(:permissions).where('permissions.user_id = ?', user.id)
+    # haml :recipes, locals: {recipes: all_recipes}
     erb :index
   end
   helpers do

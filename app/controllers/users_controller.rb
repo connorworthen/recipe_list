@@ -31,7 +31,7 @@ class UsersController < ApplicationController
 
   get '/homepage' do
     @user = User.find(session[:user_id])
-    erb :'/users/show.html'
+    erb :'/recipe/show.html'
   end
 
   get '/users' do
