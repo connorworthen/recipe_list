@@ -1,89 +1,48 @@
 class RecipesController < ApplicationController
 
   get "/recipes" do
-    # if signed_in?
-      @user = User.find(session[:user_id])
-      erb :"recipe/index.html"
+    @user = User.find(session[:user_id])
+    @recipes = Recipe.all
+    erb :"recipe/index.html"
   end
 
   get "/recipes/new" do
-    if signed_in?
-      @user = User.find_by(id: session[:user_id])
-      erb :"/recipe/new.html"
-    else
-      redirect "/signin"
-    end
+    @user = User.find_by(id: session[:user_id])
+    erb :"/recipe/new.html"
   end
 
   post "/recipes" do
-    if signed_in?
-      @user = User.find(session[:user_id])
-      if params[:chore].empty?
-        redirect "/recipes/new"
-      else
-        @user = User.find_by(:id => session[:user_id])
-        @recipe = Recipe.new
-        @recipe.chore = params[:chore]
-        @recipe.user_id = @user.id
-        @recipe.save
-        redirect "/recipes"
-      end
-    else
-      redirect "/signin"
+    @user = User.find(session[:user_id])
+    @recipe = Recipe.new
+    @recipe.recipes_name = params[:recipes_name]
+    @recipe.ingredients = params[:ingredients]
+    @recipe.instructions = params[:instructions]
+    @recipe.user_id = @user.id
+    @recipe.save
+    redirect '/recipes'
+  end
+
+  delete '/recipes/:id' do
+    recipe = Recipe.find_by(id: params[:id])
+    authorize_user(recipe)
+    u = current_user
+    if recipe
+      recipe.destroy   
+      redirect "/recipes/#{u.id}"
     end
   end
 
-#   get '/recipes/:id' do
-#     if signed_in?
-#       @recipe = Recipe.find(params[:id])
-#       if @recipe && @recipe.user == current_user
-#       erb :'/recipe/show.html'
-#     else
-#       redirect "/signin"
-#     end
-#   end
+  get '/recipes/:id/edit' do
+    @recipe = Recipe.find_by(id: params[:id])
+    authorize_user(@recipe)
+    erb :'recipe/edit.html'
+  end
 
-#   get "/recipes/:id/edit" do
-#     @user = User.find_by(id: session[:user_id])
-#     @recipe = recipe.find(params[:id])
-#     if @recipe && @recipe.user == current_user
-#     erb :"/recipes/edit.html"
-#     else
-#       redirect "/recipes"
-#     end
-#   end
-
-#   patch '/recipes/:id' do
-#     if signed_in?
-#       if params[:chore].empty?
-#         redirect "/recipes/#{params[:id]}/edit"
-#       else
-#         @recipe = Recipe.find_by_id(params[:id])
-#         if @recipe && @recipe.user == current_user
-#           if @recipe.update(:chore => params[:chore])
-#             redirect to "/recipes/#{@recipe.id}"
-#           else
-#           redirect to "/recipes/#{@recipe.id}/edit"
-#           end
-#         else
-#           redirect to '/recipes'
-#         end
-#       end
-#     else
-#       redirect '/recipes'
-#     end
-#   end
-
-#   delete '/recipes/:id/delete' do
-#    if signed_in?
-#      @user = User.find_by(id: session[:user_id]) if session[:user_id]
-#      @recipe = recipe.find_by_id(params[:id])
-#      if @recipe && @recipe.user == current_user
-#        @recipe.delete
-#        redirect '/recipes'
-#      end
-#    else
-#      redirect to '/signin'
-#    end
-#  end
+  patch '/recipe/:id' do
+    u = current_user
+    @recipe = Recipe.find_by(id: params[:id])
+    authorize_user(@recipe)
+    @recipe.update(recipes_name: params[:recipes_name], ingredients: params[:ingredients], instructions: params[:instructions])
+    redirect "/recipes/#{u.id}"
+  end
 end
