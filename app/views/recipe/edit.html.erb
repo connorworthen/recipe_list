@@ -1,8 +1,8 @@
 <h1>Editing your Recipe</h1>
-<h3>Edit for: <h2 class="confirm"><%= @recipe.chore %></h2></h3>
+<h3>Edit for: <h2 class="confirm"></h2></h3>
 
-<form action="/recipes/<%= @todo.id %>" method="post">
+<form action="/recipes/<%= @recipe.id %>" method="post">
   <input id="hidden" type="hidden" name="_method" value="patch">
-  <textarea type="text" name="chore" placeholder="Updated todo text"></textarea>
+  <textarea type="text" name="chore" placeholder="Test"></textarea>
   <input type="submit" value="update">
 </form>

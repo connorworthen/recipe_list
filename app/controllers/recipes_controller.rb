@@ -2,8 +2,7 @@ class RecipesController < ApplicationController
 
   get "/recipes" do
     @user = User.find(session[:user_id])
-    @recipes = Recipe.all
-    erb :"recipe/index.html"
+    erb :'/recipe/show.html'
   end
 
   get "/recipes/new" do
@@ -34,7 +33,6 @@ class RecipesController < ApplicationController
 
   get '/recipes/:id/edit' do
     @recipe = Recipe.find_by(id: params[:id])
-    authorize_user(@recipe)
     erb :'recipe/edit.html'
   end
 

@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
-  <title>SinatraTodoApp</title>
+  <title>TEST</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -19,9 +19,9 @@
           <% if signed_in? %>
 
             <button><a href="/recipes/new"> Create New Recipe </a></button>
-            <button><a href="/logout"> Sign-Out </a></button>
+            <button><a href="/recipes/"> Show My Recipes </a></button>
             <button><a href="/users/<%=current_user.id %>"> Edit-Profile </a></button>
-            <button><a href="/recipes"> Show My Recipes </a></button>
+            <button><a href="/logout"> Sign-Out </a></button>
             <p>Welcome, <strong><%=current_user.name.upcase %></strong></p>
 
           <% else %>

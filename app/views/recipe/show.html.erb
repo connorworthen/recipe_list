@@ -1,13 +1,13 @@
-<h1>Recipe show page</h1>
-<h3>Delete for: <h2 class="confirm"><%= @recipe.chore %></h2></h3>
+<h1>All Recipes</h1>
+
 
 <p>
-  <form action="/recipes/<%= @recipe.id %>/delete" method="POST">
+  <form action="/recipes" method="POST">
     <input type="hidden" name="_method" value="DELETE">
     <input type="submit" value="Delete">
   </form>
 <br />
 
 <p>
-<a href="/recipes/<%=@recipe.id%>/edit">Edit Recipe </a>
+<a href="/recipes">Edit Recipe </a>
 </p>

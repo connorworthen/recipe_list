@@ -11,8 +11,6 @@ class UsersController < ApplicationController
       redirect '/homepage'
     end
   end
-  #   redirect '/users/login'
-  # end
   
   get "/signup" do
     erb :'/users/new.html'
@@ -35,4 +33,28 @@ class UsersController < ApplicationController
     @user = User.find(session[:user_id])
     erb :'/recipe/index.html'
   end
+
+  get '/users' do
+    @user = User.find(sessions[:user_id])
+    erb :'users/show.html'
+  end
+
+  get '/users/:id' do
+    @user = User.find(params[:id])
+    erb :'users/show.html'
+  end
+
+  get "/users/:id/edit" do
+    @user = User.find_by(id: session[:user_id])
+    @user
+    erb :"/users/edit.html"
+  end
+
+  patch '/users/:id' do
+    u = current_user
+    @user = User.find_by(id: params[:id])
+    @user.update(name: params[:name], email: params[:email])
+    redirect "/users/#{@u.id}"
+  end
 end
+
