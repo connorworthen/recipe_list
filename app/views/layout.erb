@@ -19,8 +19,8 @@
           <% if signed_in? %>
 
             <button><a href="/recipes/new"> Create New Recipe </a></button>
-            <button><a href="/recipes"> Show My Recipes </a></button>
-            <button><a href="/recipes/:id"> Edit Recipes </a></button>
+            <button><a href="/recipes/<%=current_user.id %>"> Show My Recipes </a></button>
+            <button><a href="/recipes"> Edit Recipes </a></button>
             <button><a href="/signout"> Sign-Out </a></button>
             <p>Welcome, <strong><%=current_user.name.upcase %></strong></p>
 

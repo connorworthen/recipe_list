@@ -1,11 +1,6 @@
 <h1>Create A New Recipe</h1>
 
-<form action='/recipes' method="post">
-    <label for="recipes_names">Recipe Name:</label>
-    <textarea name="recipes_names" id="recipes_names" cols="30" rows="1"></textarea><br>
-    <label for="ingredients">Ingredients:</label><br>
-    <textarea name="ingredients" id="ingredients" cols="30" rows="10"></textarea><br>
-    <label for="instructions">Instructions:</label><br>
-    <textarea name="instructions" id="instructions" cols="30" rows="10"></textarea><br>
-    <input type="submit" value="Add">
+<form action="/recipes" method="POST">
+  <p>New Recipe: <textarea type="text" name="list" placeholder="New Recipe"></textarea></p>
+  <input type="submit" value="save" />
 </form>

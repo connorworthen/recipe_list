@@ -7,25 +7,31 @@ class RecipesController < ApplicationController
 
   get "/recipes/new" do
     @user = User.find_by(id: session[:user_id])
+    @user = current_user
     erb :"/recipe/new.html"
   end
 
   post "/recipes" do
-    @user = User.find(session[:user_id])
-    @recipe = Recipe.new
-    @recipe.recipes_name = params[:recipes_name]
-    @recipe.ingredients = params[:ingredients]
-    @recipe.instructions = params[:instructions]
-    @recipe.user_id = @user.id
-    @recipe.save
-    redirect '/homepage'
+   @user = User.find(session[:user_id])
+   if params[:list].empty?
+      redirect "/recipes/new"
+    else
+      @user = User.find_by(:id => session[:user_id])
+      @recipe = Recipe.new
+      @recipe.list = params[:list]
+      @recipe.user_id = @user.id
+      @recipe.save
+      redirect '/homepage'
+    end
   end
 
   get '/recipes/:id' do
-   @user = User.find_by(id: session[:user_id])
-   @recipe = Recipe.find(params[:id])
-   @recipe && @recipe.user == current_user
-   erb :'/recipe/show.html'
+    @recipe = Recipe.find(params[:id])
+    if @recipe && @recipe.user == current_user
+      erb :'/recipe/show.html'
+    else
+      redirect "/homepage"
+    end
   end
 
   get '/recipes/:id/edit' do
