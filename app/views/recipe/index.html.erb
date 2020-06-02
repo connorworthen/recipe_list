@@ -1,3 +1,8 @@
-<h1></h1>
 <h1>Welcome to Your recipe List</h1>
-  
+<h2><em>New Recipes Added Daily</em></h2>
+<!-- Iterate over Recipe.all to create a list -->
+<% @recipes.each do |recipe| %>
+  <li><h3> <a href="/recipes/<%= recipe.id %>"> <%= recipe.list %> </a> </h3></li>
+<% end %>
+
+#not displaying saved info

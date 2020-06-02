@@ -27,8 +27,8 @@ class RecipesController < ApplicationController
 
   get '/recipes/:id' do
     @recipe = Recipe.find(params[:id])
-    if @recipe && @recipe.user == current_user
-      erb :'/recipe/show.html'
+    if @recipe && @recipe.user == current_user #changed from show html for test
+      erb :'/recipe/index.html' 
     else
       redirect "/homepage"
     end
