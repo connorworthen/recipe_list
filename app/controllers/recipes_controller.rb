@@ -2,6 +2,7 @@ class RecipesController < ApplicationController
 
   get "/recipes" do
     @user = User.find_by(id: session[:user_id])
+    @recipes = Recipe.all
     erb :'/recipe/index.html'
   end
 
@@ -12,17 +13,12 @@ class RecipesController < ApplicationController
   end
 
   post "/recipes" do
-   @user = User.find(session[:user_id])
-   if params[:list].empty?
-      redirect "/recipes/new"
-    else
-      @user = User.find_by(:id => session[:user_id])
-      @recipe = Recipe.new
-      @recipe.list = params[:list]
-      @recipe.user_id = @user.id
-      @recipe.save
-      redirect '/homepage'
-    end
+    @user = User.find_by(:id => session[:user_id])
+    @recipe = Recipe.new
+    @recipe.list = params[:list]
+    @recipe.user_id = @user.id
+    @recipe.save
+    redirect '/homepage'
   end
 
   get '/recipes/:id' do

@@ -1,21 +1,13 @@
-<h1>Listing Recipes</h1>
+<!-- RECIPE BOOKMARKER HOMEPAGE  -->
+<h1>Welcome to Recipe Bookmarker</h1>
+<h2><em>New Recipes Added Daily</em></h2>
+<!-- Iterate over Recipe.all to create a list -->
+<% @recipes.each do |recipe| %>
+  <li><h3> <a href="/recipes/<%= recipe.id %>"> <%= recipe.list %> </a> </h3></li>
+<% end %>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @recipes.each do |recipe| %>
-      <tr>
-        <td><%= recipe.list %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+<br> <hr> <br>
+<!-- Links to show User's homepage, and to add a new Recipe Bookmark  -->
+<a href="/homepage"> Go to your Homepage </a>
 <br>
+<a href="/recipes/new"> Add Your New Recipe </a>
