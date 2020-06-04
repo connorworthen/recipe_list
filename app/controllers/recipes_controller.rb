@@ -26,12 +26,11 @@ class RecipesController < ApplicationController
   end
 
   get '/recipes/:id' do
+    @user = User.find_by(id: session[:user_id])
     @recipe = Recipe.find(params[:id])
-    if @recipe && @recipe.user == current_user #changed from show html for test
-      erb :'/recipe/index.html' 
-    else
-      redirect "/homepage"
-    end
+    @recipes = Recipe.all
+    
+    erb :'/recipe/index.html' 
   end
 
   get '/recipes/:id/edit' do
