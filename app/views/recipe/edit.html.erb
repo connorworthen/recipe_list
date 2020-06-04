@@ -1,8 +1,16 @@
-<h1>Editing your Recipe</h1>
-<h3>Edit for: <h2 class="confirm"></h2></h3>
+<h1>Edit: <%= @recipe.list %></h1>
 
-<form action="/recipes/<%= @recipe.id %>" method="post">
-  <input id="hidden" type="hidden" name="_method" value="patch">
-  <textarea type="text" name="chore" placeholder="Test"></textarea>
-  <input type="submit" value="update">
+<form action="/recipes/<%= @recipe.id %>/edit" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="recipe[list]">Recipe Name:
+    <input type="text" name="recipe[list]" value="<%= @recipe.list%>">
+  </label> <br>
+  <input type="submit" name="submit" value="Edit This Recipe">
 </form>
+
+<br><br>
+
+<form action="/recipes/<%= @recipe.id %>/delete" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <input type="submit" name="delete" value="Delete This Recipe">
+</form

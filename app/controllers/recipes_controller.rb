@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
   get '/recipes/:id/edit' do
     @user = User.find_by(id: session[:user_id])
     @recipe = Recipe.find(params[:id])
-    @recipe && @recipe.user == current_user
+    @recipes = Recipe.all
     erb :'recipe/edit.html'
   end
 
