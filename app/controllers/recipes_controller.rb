@@ -27,18 +27,18 @@ class RecipesController < ApplicationController
 
   get '/recipes/:id' do
     @user = User.find_by(id: session[:user_id])
-    @recipe = Recipe.find(params[:id])
+    # @recipe = Recipe.(params[:id])
     @recipes = Recipe.all
-    
     erb :'/recipe/index.html' 
   end
 
-  get '/recipes/:id/edit' do
-    @user = User.find_by(id: session[:user_id])
-    @recipe = Recipe.find(params[:id])
-    @recipes = Recipe.all
-    erb :'recipe/edit.html'
-  end
+  # get '/recipes/:id/edit' do
+  #   @user = User.find_by(id: session[:user_id])
+  #   @recipe = Recipe.find_by(params[:id)
+  #   @recipes = Recipe.all
+  #   @todo && @todo.user == current_user
+  #   erb :'recipe/edit.html'
+  # end
 
   patch '/recipe/:id' do
     u = current_user
@@ -49,12 +49,9 @@ class RecipesController < ApplicationController
   end
 
   delete '/recipes/:id/delete' do
-    recipe = Recipe.find_by(id: params[:id])
-    authorize_user(recipe)
-    u = current_user
-    if recipe
-      recipe.destroy   
-      redirect "/recipes/#{u.id}"
-    end
+    @user = User.find_by(id: session[:user_id]) if session[:user_id]
+    @recipe = Recipe.find_by_id(params[:id])
+    @recipe.delete  
+    redirect "/homepage"
   end
 end

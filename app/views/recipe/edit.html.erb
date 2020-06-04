@@ -1,6 +1,6 @@
-<h1>Edit: <%= @recipe.list %></h1>
+<h1>Edit:</h1>
 
-<form action="/recipes/<%= @recipe.id %>/edit" method="post">
+<form action="/recipes/<%= @recipe.id %>" method="post">
   <input type="hidden" name="_method" value="patch">
   <label for="recipe[list]">Recipe Name:
     <input type="text" name="recipe[list]" value="<%= @recipe.list%>">
