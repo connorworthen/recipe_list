@@ -28,15 +28,15 @@ class RecipesController < ApplicationController
     erb :'/recipe/index.html' 
   end
 
-  # get '/recipes/:id/edit' do
-  #   @user = User.find_by(id: session[:user_id])
-  #   @recipe = Recipe.find_by(params[:id)
-  #   @recipes = Recipe.all
-  #   @todo && @todo.user == current_user
-  #   erb :'recipe/edit.html'
-  # end
+  get '/recipes/:id/edit' do
+    @user = User.find_by(id: session[:user_id])
+    @recipe = Recipe.find_by_id(params[:recipe])
+    # @recipes = recipe.all
 
-  patch '/recipe/:id' do
+    erb :'recipe/edit.html'
+  end
+
+  patch '/recipes/:id' do
     u = current_user
     @recipe = Recipe.find_by(id: params[:id])
     authorize_user(@recipe)

@@ -1,17 +1,16 @@
 <h1>Edit:</h1>
 
-<form action="/recipes/<%= @recipe.id %>" method="post">
+<form action="/recipes/:id" method="post">
   <input type="hidden" name="_method" value="patch">
-  <label for="recipe[list]">Recipe Name:
-    <input type="text" name="recipe[list]" value="<%= @recipe.list%>">
+  <label for="recipe">Recipe Name:
+    <input type="text" name="recipe" value="test">
   </label> <br>
   <input type="submit" name="submit" value="Edit This Recipe">
 </form>
 
 <br><br>
 
-<form action="/recipes/<%= @recipe.id %>/delete" method="post">
+<form action="/recipes/:id/delete" method="post">
   <input type="hidden" name="_method" value="delete">
   <input type="submit" name="delete" value="Delete This Recipe">
 </form
-
