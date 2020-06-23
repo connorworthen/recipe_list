@@ -16,7 +16,7 @@ class RecipesController < ApplicationController
     @user = User.find_by(:id => session[:user_id])
     @recipe = Recipe.new
     @recipe.list = params[:list]
-    @recipe.user_id = @user.id
+    # @recipe.user_id = @user.id
     @recipe.save
     redirect '/homepage'
   end
