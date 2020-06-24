@@ -11,7 +11,7 @@ class RecipesController < ApplicationController
   end
 
   get '/recipes/new' do
-    redirect_if_not_logged_in
+    is_logged_in?
 
     @user = current_user
     erb :'recipe/new.html'
@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
 
   post '/recipes' do
     @recipe = Recipe.create(params[:recipe])
-    # bookmark = Bookmark.create(user_id: current_user.id, recipe_id: @recipe.id)
+    recipes = Recipes.create(user_id: current_user.id, recipe_id: @recipe.id)
 
     if !!@recipe.id
       redirect "/recipes/#{@recipe.id}"

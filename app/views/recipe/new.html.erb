@@ -1,12 +1,12 @@
 <h1>Add A New Recipe</h1>
 
 <form action="/recipes" method="post">
-  <label for="recipe[list]">Recipe Name:
-    <input type="text" name="recipe[list]">
+  <label for="recipe[name]">Recipe Name:
+    <input type="text" name="recipe[name]">
   </label> <br>
-  <label for="ingredients[list]">Ingredients:</label><br>
-<textarea name="ingredients" id="ingredients" cols="30" rows="10"></textarea><br>
-  <label for="instructions[list]">Instructions:</label><br>
-<textarea name="instructions" id="instructions" cols="30" rows="10"></textarea><br>
-  <input type="submit" value="save" />
+  <label for="">URL:
+    <input type="text" name="recipe[url]">
+  </label> <br>
+  <input type="hidden" name="recipe[user_id]" value="<%= @user_id %>">
+  <input type="submit" name="submit" value="Submit">
 </form>
