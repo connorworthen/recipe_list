@@ -1,58 +1,52 @@
 class UsersController < ApplicationController
 
-  get "/login" do
-    erb :"/users/login.html"
+  get '/login' do
+    if is_logged_in?
+      @user = current_user
+      redirect "/recipes"
+    else
+      erb :'users/login.html'
+    end
   end
 
   post '/login' do
-    @user = User.find_by(:name => params[:name])
-    if @user && @user.authenticate(params[:password])
+    @user = User.find_by(username: params[:user][:username])
+    if !!@user && @user.authenticate(params[:user][:password])
       session[:user_id] = @user.id
-      redirect '/homepage'
+      redirect "/recipes"
+    else
+      flash[:message] = "Login credentials not found, please try again or sign up"
+      redirect '/login'
     end
   end
-  
-  get "/signup" do
-    erb :'/users/new.html'
+
+  get '/signup' do
+    if is_logged_in?
+      @user = current_user #just reference current user instead of setting instanc evariable
+      redirect "/recipes"
+    else
+      erb :'users/signup.html'
+    end
   end
 
-  post "/signup" do
-    puts params
-    @user = User.new(name: params["name"], email: params["email"], password: params["password"])
-    @user.save
-    session[:user_id] = @user.id
-    redirect "/homepage"
+  post '/signup' do
+    @user = User.create(params[:user])
+    # if !!@user.id
+      session[:name] = @user.username
+      session[:user_id] = @user.id
+      redirect "/recipes"
+    # end
   end
 
-  get '/signout' do
+  # get '/users/:id/bookmarks' do
+  #   redirect_if_not_logged_in
+
+  #   @user = User.find_by_id(params[:id])
+  #   erb :'users/index'
+  # end
+
+  get '/logout' do
     session.clear
-    redirect '/'
-  end
-
-  get '/homepage' do
-    @user = User.find(session[:user_id])
-    erb :'/recipe/show.html'
-  end
-
-  get '/users' do
-    @user = User.find(sessions[:user_id])
-    erb :'users/show.html'
-  end
-
-get '/users/:id' do
-    @user = User.find(params[:id])
-    erb :'users/show.html'
-  end
-get "/users/:id/edit" do
-    @user = User.find_by(id: session[:user_id])
-    @user
-    erb :"/users/edit.html"
-  end
-
-  patch '/users/:id' do
-    @user = User.find_by(id: params[:id])
-    @user.update(name: params[:name], email: params[:email])
-    @user.save
-    redirect "/users/#{@user.id}"
+    redirect to '/'
   end
 end

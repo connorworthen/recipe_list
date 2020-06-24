@@ -10,18 +10,28 @@ class ApplicationController < Sinatra::Base
   end
 
   get "/" do
-    # @user = User.find_by(id: session[:user_id])
-    # all_recipes = Recipe.association_join(:permissions).where('permissions.user_id = ?', user.id)
-    # haml :recipes, locals: {recipes: all_recipes}
-    erb :index
+    if is_logged_in?
+      redirect '/recipes'
+    else
+      erb :'index'
+    end
   end
+
   helpers do
-    def signed_in?
+
+    def current_user
+      @user = User.find_by_id(session[:user_id])
+    end
+
+    def is_logged_in?
       !!current_user
     end
 
-    def current_user
-      @current_user ||= User.find_by(id: session[:user_id]) if session[:user_id]
-    end
+    # def redirect_if_not_logged_in
+    #   if !is_logged_in?
+    #     # flash[:message] = "Please log in to view that page."
+    #     redirect "/"
+    #   end
+    # end
   end
 end

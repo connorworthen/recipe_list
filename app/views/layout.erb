@@ -7,7 +7,7 @@
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 
-  <title>TEST</title>
+  <title>RecipeBookmarker</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -15,25 +15,18 @@
 </head>
 <body>
   <div class="wrapper">
-    <nav>
-          <% if signed_in? %>
 
-            <button><a href="/recipes/new"> Create New Recipe </a></button>
-            <button><a href="/recipes/<%=current_user.id %>"> Show My Recipes </a></button>
-            <button><a href="/recipes/<%=current_user.id %>/edit"> Edit Recipes </a></button>
-            <button><a href="/signout"> Sign-Out </a></button>
-            <p>Welcome, <strong><%=current_user.name.upcase %></strong></p>
-
-          <% else %>
-            <button><a href="/signup">Sign-Up</a></button>
-            <button><a href="/signin"> Sign-In </a></button>
-          <%end %>
-
-        </nav>
       <%= yield %>
 
     <footer class="branding">
-      <small>&copy; 2020 <strong>Test</strong></small>
+      <small>&copy; 2018 <strong>RecipeBookmarker</strong></small> <br>
+      <% if current_user%>
+      <% @user = current_user %>
+      <small align="left"> Current User: <%= @user.username %> </small>
+      <small align="right"> <a href="/logout">Log Out</a></small>
+      <% else%>
+      <small> No one is logged in right now</small>
+      <% end %>
     </footer>
   </div>
 
