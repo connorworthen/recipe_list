@@ -36,7 +36,7 @@ class RecipesController < ApplicationController
 
   post '/recipes' do
     @recipe = Recipe.create(params[:recipe])
-    recipes = Recipes.create(user_id: current_user.id, recipe_id: @recipe.id)
+    bookmark = Bookmark.create(user_id: current_user.id, recipe_id: @recipe.id)
 
     if !!@recipe.id
       redirect "/recipes/#{@recipe.id}"

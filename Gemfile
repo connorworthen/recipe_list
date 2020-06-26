@@ -10,6 +10,7 @@ gem 'pony'
 gem 'bcrypt'
 gem "tux"
 gem 'sqlite3', '~> 1.3.13'
+gem 'rack-flash3'
 
 group :test do
   gem 'rspec'

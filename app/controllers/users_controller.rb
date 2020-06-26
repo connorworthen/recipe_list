@@ -31,11 +31,11 @@ class UsersController < ApplicationController
 
   post '/signup' do
     @user = User.create(params[:user])
-    # if !!@user.id
+    if !!@user.id
       session[:name] = @user.username
       session[:user_id] = @user.id
       redirect "/recipes"
-    # end
+    end
   end
 
   # get '/users/:id/bookmarks' do
