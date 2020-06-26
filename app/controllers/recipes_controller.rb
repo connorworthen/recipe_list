@@ -67,16 +67,4 @@ class RecipesController < ApplicationController
     redirect '/recipes'
   end
 
-  # patch '/recipes/:id/add' do
-  #   @recipe = Recipe.find_by_id(params[:id])
-  #   current_user.add_bookmark(@recipe)
-  #   redirect "/users/#{current_user.id}/bookmarks"
-  # end
-
-  # patch '/recipes/:id/remove' do
-  #   @recipe = Recipe.find_by_id(params[:id])
-  #   current_user.remove_bookmark(@recipe)
-  #   redirect "/users/#{current_user.id}/bookmarks"
-  # end
-
 end

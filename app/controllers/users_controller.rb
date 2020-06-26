@@ -15,14 +15,14 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/recipes"
     else
-      flash[:message] = "Login credentials not found, please try again or sign up"
+      flash[:message] = "Incorrect usernae or password, please try again or sign up"
       redirect '/login'
     end
   end
 
   get '/signup' do
     if is_logged_in?
-      @user = current_user #just reference current user instead of setting instanc evariable
+      @user = current_user 
       redirect "/recipes"
     else
       erb :'users/signup'
@@ -37,7 +37,7 @@ class UsersController < ApplicationController
       session[:user_id] = @user.id
       redirect "/recipes"
     else
-      flash[:message] = "Please fill out all signup information, or pick a different username"
+      flash[:message] = "An error has occured, please try again or signin"
       redirect to '/signup'
     end
   end
