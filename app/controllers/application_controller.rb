@@ -13,7 +13,7 @@ class ApplicationController < Sinatra::Base
     if is_logged_in?
       redirect '/recipes'
     else
-      erb :'index'
+      erb :index
     end
   end
 
@@ -27,11 +27,21 @@ class ApplicationController < Sinatra::Base
       !!current_user
     end
 
-    # def redirect_if_not_logged_in
-    #   if !is_logged_in?
-    #     # flash[:message] = "Please log in to view that page."
-    #     redirect "/"
-    #   end
-    # end
+    def redirect_if_not_logged_in
+      if !is_logged_in?
+        flash[:message] = "Please log in to view that page."
+        redirect "/"
+      end
+    end
+
+    def redirect_if_not_creator(recipe)
+      if current_user.id != recipe.user_id
+        flash[:message] = "You are not able to edit a recipe you have not created."
+        redirect "/recipes/#{recipe.id}"
+      end
+
+    end
+
   end
+
 end
