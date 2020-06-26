@@ -1,1 +1,42 @@
-<h1>Recipe Show Test Page</h1>
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+<!--  USE IN LAYOUT -->
+
+<h1> <%= @recipe.name %> </h1> <br>
+<p>Recipe Found At:<br>
+<a href="<%= @recipe.url %>"> <%= @recipe.url %> </a></p>
+<p>Recipe Added By: <%= @creator.username %></p>
+<hr>
+<br>
+<% if @user.id == @creator.id %>
+
+  <a href="/recipes/<%= @recipe.id %>/edit">Edit or Delete Recipe</a>
+
+<% end %>
+<br><br>
+
+<!-- QUESTION: Does it make sense for a user to own a recipe and be able to unbookmark it?  -->
+
+<% if @user.recipes.include?(@recipe) || @user.bookmarked_recipes.include?(@recipe)%>
+
+  <!-- User method to remove recipe from bookmarks -->
+
+  <form action="/recipes/<%= @recipe.id %>/remove" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input type="submit" name="remove_bookmark" value="Remove Bookmark">
+  </form>
+
+<% else %>
+
+<!-- User method to add recipe to bookmarks -->
+
+  <form action="/recipes/<%= @recipe.id %>/add" method="post">
+    <input type="hidden" name="_method" value="patch">
+    <input type="submit" name="add_bookmark" value="Add Bookmark">
+  </form>
+
+<% end %>
+
+<br><br>
+<a href="/recipes">Return to Recipe Bookmarker Homepage</a>

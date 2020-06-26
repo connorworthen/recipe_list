@@ -1,16 +1,17 @@
-<h1>Sign-In to recipe app</h1>
-<h1></h1>
-<br />
-<form action="/login" method="POST">
-  <p>
-  <label for="name">Username: </label>
-    <input type="text" name="name" placeholder="Name:">
-  </p>
-<br />
-<p>
-  <label for="password">Password:  </label>
-    <input type="text" name="password" placeholder="Password:">
-  </p>
-<br />
-  <input type="submit" value="Sign-In">
+<% if flash.has?(:message) %>
+  <%= flash[:message] %>
+<% end %>
+
+<h1>Log In To Your Account</h1>
+<form action="/login" method="post">
+  <label for="user[username]">Username:<br>
+    <input type="text" name="user[username]">
+  </label><br>
+  <label for="user[password]">Password:<br>
+    <input type="password" name="user[password]">
+  </label><br>
+
+    <input type="submit" name="submit" value="Log In">
 </form>
+<br><br>
+<a href="/signup">Sign Up</a>

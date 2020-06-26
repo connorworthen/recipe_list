@@ -5,7 +5,7 @@ class UsersController < ApplicationController
       @user = current_user
       redirect "/recipes"
     else
-      erb :'users/login.html'
+      erb :'users/login'
     end
   end
 
@@ -25,28 +25,33 @@ class UsersController < ApplicationController
       @user = current_user #just reference current user instead of setting instanc evariable
       redirect "/recipes"
     else
-      erb :'users/signup.html'
+      erb :'users/signup'
     end
   end
 
   post '/signup' do
     @user = User.create(params[:user])
+
     if !!@user.id
       session[:name] = @user.username
       session[:user_id] = @user.id
       redirect "/recipes"
+    else
+      flash[:message] = "Please fill out all signup information, or pick a different username"
+      redirect to '/signup'
     end
   end
 
-  # get '/users/:id/bookmarks' do
-  #   redirect_if_not_logged_in
+  get '/users/:id/bookmarks' do
+    redirect_if_not_logged_in
 
-  #   @user = User.find_by_id(params[:id])
-  #   erb :'users/index'
-  # end
+    @user = User.find_by_id(params[:id])
+    erb :'users/index'
+  end
 
   get '/logout' do
     session.clear
     redirect to '/'
   end
+
 end
