@@ -50,7 +50,6 @@ class RecipesController < ApplicationController
     redirect_if_not_creator(@recipe)
 
     @recipe.update(params[:recipe])
-    @recipe.save
     redirect "/recipes/#{@recipe.id}"
   end
 

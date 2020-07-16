@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   has_many :recipes
 
   has_secure_password
-  validates_presence_of :username, :password_digest
+  validates_presence_of :username
   validates :username, uniqueness: true
 
   def bookmarked_recipes

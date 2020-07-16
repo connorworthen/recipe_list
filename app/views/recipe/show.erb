@@ -1,8 +1,3 @@
-<% if flash.has?(:message) %>
-  <%= flash[:message] %>
-<% end %>
-<!--  USE IN LAYOUT -->
-
 <h1> <%= @recipe.name %> </h1> <br>
 <p>Recipe Found At:<br>
 <a href="<%= @recipe.url %>"> <%= @recipe.url %> </a></p>
@@ -16,7 +11,6 @@
 <% end %>
 <br><br>
 
-<!-- QUESTION: Does it make sense for a user to own a recipe and be able to unbookmark it?  -->
 
 <% if @user.recipes.include?(@recipe) || @user.bookmarked_recipes.include?(@recipe)%>
 
