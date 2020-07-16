@@ -2,7 +2,6 @@ class User < ActiveRecord::Base
   has_many :bookmarks
   has_many :recipes
 
-
   has_secure_password
   validates_presence_of :username, :password_digest
   validates :username, uniqueness: true
@@ -22,5 +21,6 @@ class User < ActiveRecord::Base
     save
   end
 
-
 end
+
+#chef = model server + controller plate = erb
