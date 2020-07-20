@@ -17,3 +17,4 @@ end
  # to "fried rice" do ingredient = Recipe.new then recipe.ingredients.build(name: "rice") or 
  # ingredient = Ingredient.create(name: "eggs", recipe_id: recipe.id)
  # study line 13 and write down to bettr understand 
+ # link to study https://guides.rubyonrails.org/association_basics.html
